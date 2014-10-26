@@ -8,7 +8,7 @@ module Test
           result.faults.each { |err|
             case err
               when Test::Unit::Error, Test::Unit::Failure
-                f << err.test_name + '+arg ' + $arguments
+                f << "#{err.test_name} failed in #{$browser} browser"
                 f << "\n"
               when Test::Unit::Pending, Test::Unit::Notification, Test::Unit::Omission
             end

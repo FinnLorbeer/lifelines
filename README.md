@@ -7,12 +7,13 @@ Here you find the entire testsuite. It is using the
 [Watir Webdriver](http://watirwebdriver.com/) and the
 [Unit Test Framework](http://test-unit.rubyforge.org/).
 
+# Browser and Headless
+
 Firefox works out of the box. Besides firefox you can run the tests in a
 headless environment. You need to
 [install xvfb](https://github.com/wimdu/livelines#install-xvfb) though.
 They can also run in Chrome, when the [Chrome Driver](https://sites.google.com/a/chromium.org/chromedriver/home)
 is installed on the system.
-
 
 As an alternative, you can run them headless on your local machine (in Linux).
 ```
@@ -29,6 +30,7 @@ bundle exec bin/test firefox
 ```
 * Possible options for browser are either `firefox`, `chrome` or `headless`
 
+# Debugging
 
 If an error occurs and you want to rerun a certain test suite use an optional argument -n:
 
@@ -38,3 +40,14 @@ bundle exec bin/test firefox -n test_search_form
 
 In any case the error output in the console gives you the first clues where to
 fix the tests :-)
+
+The error output will also be stored in the log files. You find the failing testcase (and browser) in
+```
+log/errors.log
+```
+Furthermore the backtrace is saved in
+```
+log/backtrace.log
+```
+Both files are overwritten in case you start a new test run.    
+
