@@ -19,7 +19,7 @@ As an alternative, you can run them headless on your local machine (in Linux).
 ```
 sudo apt-get install -y xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic xvfb x11-apps  imagemagick
 ```
-Mac user may want to set up a virtual box with Linux or try some fancy hacks to get a headless environment up and running.
+Mac user may want to set up a virtual box with Linux or set up and use [XQuarz](http://xquartz.macosforge.org/landing/)
 
 
 # Start the tests
