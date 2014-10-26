@@ -17,7 +17,11 @@ def load_file(f)
   Dir[File.dirname(__FILE__) + "#{f}/*.rb"].each { |file| require file }
 end
 
-$arguments = ARGV[0]
+unless ARGV[0] == ('firefox' || 'headless' || 'chrome')
+  abort ("you did not choose a correct browser. please choose 'firefox' or 'headless' or 'chrome'")
+end
+$arg = ARGV[0]
+
 load_file('/classes/**')
 load_file('/tests/**')
 

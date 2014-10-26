@@ -1,4 +1,4 @@
-class Frontpage
+class HtmlElments
 
   attr_accessor :available_months
 
@@ -15,7 +15,6 @@ class Frontpage
 
   def find_basic_content
     assert $browser.h2(text: 'Welcome to MarsAir!').exists?, "Headline not found"
-    assert $browser.h3(text: 'Book a ticket to the red planet now!').exists?, "Subtitle not found"
     assert $browser.label(text: 'Departing').exists?, "Depart Label not found"
     assert $browser.label(text: 'Returning').exists?, "Return Label not found"
     assert $browser.input(value: 'Search').exists?, "Search Button not found"

@@ -13,15 +13,13 @@ class Setup
   private
 
   def initate_browser
-    case $arguments
+    case $arg
       when 'chrome'
         $browser = Watir::Browser.new :chrome
       when 'firefox'
         $browser = Watir::Browser.new :firefox
       when 'headless'
         start_headless
-      else
-        raise "no browser '#{$browser}' defined"
     end
     $browser.goto('florbeer.marsair.tw')
   end
@@ -35,7 +33,7 @@ class Setup
     $browser.driver.manage.window.move_to(0, 0)
     #width = $b.execute_script('return screen.width;')
     #height = $b.execute_script('return screen.height;')
-    #resize_view(width, height)
+    resize_view(1024, 768)
   end
 
   def start_headless
