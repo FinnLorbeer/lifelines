@@ -16,7 +16,7 @@ def load_file(f)
   Dir[File.dirname(__FILE__) + "#{f}/*.rb"].each { |file| require file }
 end
 
-unless ARGV[0] == ('firefox' || 'headless' || 'chrome')
+unless ARGV[0] == 'firefox' or ARGV[0] == 'headless' or ARGV[0] == 'chrome'
   abort ("you did not choose a correct browser. please choose 'firefox' or 'headless' or 'chrome'")
 end
 $arg = ARGV[0]

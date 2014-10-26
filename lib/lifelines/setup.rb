@@ -39,7 +39,7 @@ class Setup
   def start_headless
     $headless = Headless.new
     $headless.start
-    $b = Watir::Browser.start 'florbeer.marsair.tw'
+    $browser = Watir::Browser.start 'florbeer.marsair.tw'
   end
 
   def resize_view(width, height)
