@@ -1,4 +1,4 @@
-class HtmlElments
+class Frontpage
 
   attr_accessor :available_months
 
