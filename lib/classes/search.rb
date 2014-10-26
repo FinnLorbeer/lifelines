@@ -12,8 +12,6 @@ class Searchparameter
     departing.select param[:depart]
     returning.select param[:return]
     search.click
-    assert $browser.h2(text: 'Search Results').exists?, "Headline of search page not found"
-    assert $browser.a(href: '/', text: 'MarsAir').exists?, "Logo with Home-Link not found"
   end
 
   def find_result(success)
@@ -26,6 +24,8 @@ class Searchparameter
       else
         raise "#{success[:success_expected]} should be 'true' or 'false'"
     end
+    assert $browser.h2(text: 'Search Results').exists?, "Headline of search page not found"
+    assert $browser.a(href: '/', text: 'MarsAir').exists?, "Logo with Home-Link not found"
     #assert ($browser.text.include? 'Book a ticket to the red planet now!'), "Did not find text 'Book a ticket to the red planet now!'"
     $browser.a(text: 'Back').click
   end

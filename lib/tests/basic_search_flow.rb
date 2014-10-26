@@ -8,7 +8,7 @@ class BasicSearchFlow < Test::Unit::TestCase
     Teardown.new
   end
 
-  def test_frontpage_elements
+  def test_search_flow_frontpage_elements
     store_method_name
     frontpage_elements = Frontpage.new
     frontpage_elements.find_basic_content

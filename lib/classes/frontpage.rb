@@ -34,6 +34,11 @@ class Frontpage
     end
   end
 
+  def find_voucher_field
+    assert $browser.label(text: 'Promotional Code').exists?
+    assert $browser.input(id: 'promotional_code').exists?
+  end
+
   private
 
   def list(id)
