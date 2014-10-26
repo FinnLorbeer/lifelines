@@ -37,7 +37,7 @@ def store_method_name
     caller[0]=~/`(.*?)'/ #`
     $1
     $test_name = $1
-    puts "" ,"testing #{$test_name.to_s[5..-1].gsub!(/_/, ' ')} now"
+    puts "" ,"testing #{$test_name} now"
   rescue => e
     puts "read error in method name"
   end

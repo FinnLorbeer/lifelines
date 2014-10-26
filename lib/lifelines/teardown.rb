@@ -10,20 +10,20 @@ class Teardown
 
   def save_screenshot
     begin
-      $b.screenshot.save( File.expand_path("./screenshots/#{$test_name}.png") )
+      $browser.screenshot.save( File.expand_path("./screenshots/#{$test_name}.png") )
     rescue
       puts 'taking screenshot failed.'
     end
   end
 
   def close_browser
-    begin #Timeout::Error
-      Timeout::timeout(10) { $b.close }
-    rescue Timeout::Error
-      browser_pid = $b.driver.instance_variable_get(:@bridge).instance_variable_get(:@service).instance_variable_get(:@process).pid
-      ::Process.kill('KILL', browser_pid)
-      sleep 10
-    end
+    #begin #Timeout::Error
+      Timeout::timeout(10) { $browser.close }
+    #rescue Timeout::Error
+    #  browser_pid = $browser.driver.instance_variable_get(:@bridge).instance_variable_get(:@service).instance_variable_get(:@process).pid
+    #  ::Process.kill('KILL', browser_pid)
+    #  sleep 1
+    #end
   end
 
 end

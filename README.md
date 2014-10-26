@@ -49,5 +49,5 @@ Furthermore the backtrace is saved in
 ```
 log/backtrace.log
 ```
-Both files are overwritten in case you start a new test run.    
+Both files are overwritten in case you start a new test run.
 

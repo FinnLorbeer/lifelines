@@ -13,18 +13,12 @@ require 'lifelines/setup'
 require 'lifelines/teardown'
 require 'lifelines/error_logging'
 
-module Lifelines
-
-  def initialize
-    $browser = ARGV[1]
-    load_file('/classes/**')
-    load_file('/tests/**')
-  end
-
-  private
-
-  def load_file(f)
-    Dir[File.dirname(__FILE__) + "#{f}/*.rb"].each { |file| require file }
-  end
-
+def load_file(f)
+  Dir[File.dirname(__FILE__) + "#{f}/*.rb"].each { |file| require file }
 end
+
+$arguments = ARGV[0]
+load_file('/classes/**')
+load_file('/tests/**')
+
+
