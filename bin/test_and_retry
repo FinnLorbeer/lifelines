@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+system('clear')
+
+starttime = Time.now
+puts "Test start: #{starttime.strftime("%I:%M:%S %p")}"
+
+# delete all files fromt previous runs
+Dir.glob('screenshots/*').each(&File.method(:delete))
+Dir.glob('lib/images/compare/diff/*').each(&File.method(:delete))
+Dir.glob('lib/images/compare/current/*').each(&File.method(:delete))
+
+#run tests and retry failed ones
+system('bundle', 'exec', 'bin/test', *ARGV)
+store_exit = system('bundle', 'exec', 'bin/retry')
+
+endtime = Time.now
+duration = endtime - starttime
+puts "Test end: #{endtime.strftime("%I:%M:%S %p")}"
+puts "Total duration: #{Time.at(duration).utc.strftime("%M:%S")}"
+
+#exit with correct code, if test is running on jenkins
+if store_exit
+  exit 0
+else
+  exit 1
+end

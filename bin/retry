@@ -1,0 +1,93 @@
+#!/usr/bin/env ruby
+require 'colorize'
+
+errors=[]
+File.open('log/errors.log', 'r') do |input|
+  input.each do |line|
+    errors.push line
+  end
+end
+
+
+if errors.length == 0
+
+  puts 'Success'.bold.white.on_green
+  puts '='.bold.white.on_green * 79
+  puts ''
+  puts ' All tests are green. No Errors.'
+  puts ''
+  puts '='.bold.white.on_green * 79
+
+  exit(0)
+
+else
+
+  puts 'Attempting to resolve errors'
+  try = 1
+
+  while try <= 1
+
+    puts "Try number: #{try}"
+    Dir.glob('screenshots/*').each(&File.method(:delete))
+    Dir.glob('log/backtraces/*').each(&File.method(:delete))
+
+    errors.each_with_index{|name, i|
+      testcase = (/^[^\(]*/.match(name)).to_s
+      arguments = (/(?<=\+arg ).*/.match(name)).to_s
+      puts "Trying to resolve #{testcase}"
+
+      if system("bundle exec bin/test #{arguments} -n #{testcase}")
+        errors[i] = false
+      end
+
+    }
+
+    errors.delete(false)
+
+    if errors.length == 0
+
+      puts 'Success'.bold.white.on_green
+      puts '='.bold.white.on_green * 79
+      puts ''
+      puts ' All errors resolved successfully!'
+      puts ''
+      puts '='.bold.white.on_green * 79
+      puts "test succeeded on #{@staging}"
+
+      exit(0)
+
+    end
+
+    try+=1
+
+  end
+
+  if errors.length != 0
+
+    puts 'Fail'.bold.white.on_red
+    puts '='.bold.white.on_red * 79
+    puts ''
+    puts 'Unresolved errors:'.bold
+    puts ''
+
+    errors.each do |name|
+      failure = /^[^\(]*/.match(name)
+      puts " #{failure}".bold
+    end
+
+    puts ''
+    puts 'Screenshots of all Errors can be seen in ./screenshots'.bold
+    puts ''
+    puts '='.bold.white.on_red * 79
+
+    File.open('log/errors.log', 'w') do |output|
+      errors.each do |error|
+        output.write( error.to_s)
+      end
+    end
+
+    exit(1)
+
+  end
+
+end
