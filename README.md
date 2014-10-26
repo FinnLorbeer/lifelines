@@ -21,21 +21,30 @@ sudo apt-get install -y xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrill
 ```
 Mac user may want to set up a virtual box with Linux or try some fancy hacks to get a headless environment up and running.
 
+
 # Start the tests
 
-You can start the tests by runing `test` + 1 mandatory argument (which chooses the browser)
+You can start the tests by runing `test_and_retry` + one mandatory argument, which chooses the browser
 
 ```
-bundle exec bin/test firefox
+bundle exec bin/test_and_retry firefox
 ```
+
+the arguments have to have the order and format of `staging_<staging> <browser>'.
+
+The following will happen
+
+* It firsts starts the `bin/test` script. All errors are logged.
+* When the testsuite is done the `bin/retry` script is run and tries all test
+  cases that threw and exception once more to ensure, that the error is real (and no e.g. timeout on server)
+* For all tests that failed 2 times you can see the screenshots in the folder
+  /screenshots.
 * Possible options for browser are either `firefox`, `chrome` or `headless`
 
-# Debugging
-
-If an error occurs and you want to rerun a certain test suite use an optional argument -n:
+If an error occurs and you want to rerun this distinct test suite use an optional argument -n:
 
 ```
-bundle exec bin/test firefox -n test_search_form
+bundle exec bin/test firefox -n test_search_flow_frontpage_elements
 ```
 
 In any case the error output in the console gives you the first clues where to
@@ -49,5 +58,9 @@ Furthermore the backtrace is saved in
 ```
 log/backtrace.log
 ```
-Both files are overwritten in case you start a new test run.
+Last, at every end of an test (may it be fail or success) a screenshot is created at
+```
+/screenshots
+```
+This is quite helpful, too, when debugging a problem.
 
