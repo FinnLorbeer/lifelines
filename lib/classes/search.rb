@@ -26,7 +26,24 @@ class Searchparameter
     end
     assert $browser.h2(text: 'Search Results').exists?, "Headline of search page not found"
     assert $browser.a(href: '/', text: 'MarsAir').exists?, "Logo with Home-Link not found"
-    #assert ($browser.text.include? 'Book a ticket to the red planet now!'), "Did not find text 'Book a ticket to the red planet now!'"
+    go_back
+  end
+
+  def find_invalid_dates
+    text = 'Unfortunately, this schedule is not possible. Please try again.'
+    assert $browser.p(text: text).exists?, "Did not find text '#{text}'"
+    go_back
+  end
+
+  def find_valid_dates
+    text = 'Unfortunately, this schedule is not possible. Please try again.'
+    assert !$browser.p(text: text).exists?, "Did not find text '#{text}'"
+    go_back
+  end
+
+  private
+
+  def go_back
     $browser.a(text: 'Back').click
   end
 
