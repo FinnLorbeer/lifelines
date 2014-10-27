@@ -1,66 +1,91 @@
 # Lifelines
 
 These are the Watir Tests to be run on the marsair project by Thoughtworks.
-They are an example setup of a complex test suite for the given example.
+They are an strip-down example of a complex test suite for a web application.
 
 Here you find the entire testsuite. It is using the
 [Watir Webdriver](http://watirwebdriver.com/) and the
 [Unit Test Framework](http://test-unit.rubyforge.org/).
+The tests are written in [Ruby](https://www.ruby-lang.org/en/installation/)
 
-# Browser and Headless
+# Getting Started
+
+After installing Ruby you can install all needed packages by installing bundler once:
+```
+gem install bundler
+```
+And check for new packages in the repository with
+```
+bundle install
+``
+
+The tests are running in real browsers and "experience" the page like a real user.
+They cannot interact with hidden elements or not fully loaded content. One can
+run the tests in different browsers:
+
+# Browsers
 
 Firefox works out of the box. Besides firefox you can run the tests in a
-headless environment. You need to
-[install xvfb](https://github.com/wimdu/livelines#install-xvfb) though.
+headless environment. You need to [install xvfb](https://github.com/wimdu/livelines#install-xvfb) though.
+
 They can also run in Chrome, when the [Chrome Driver](https://sites.google.com/a/chromium.org/chromedriver/home)
 is installed on the system.
-
-As an alternative, you can run them headless on your local machine (in Linux).
-```
-sudo apt-get install -y xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic xvfb x11-apps  imagemagick
-```
-Mac user may want to set up a virtual box with Linux or set up and use [XQuarz](http://xquartz.macosforge.org/landing/)
 
 
 # Start the tests
 
-You can start the tests by runing `test_and_retry` + one mandatory argument, which chooses the browser
+You can start the tests by runing `test_and_retry <browser>`, where <browser> is the name of the browser you want to run
+ the tests in.
+
+* Possible options for browser are either `firefox`, `chrome` or `headless`
+
+Example:
 
 ```
 bundle exec bin/test_and_retry firefox
 ```
 
-the arguments have to have the order and format of `staging_<staging> <browser>'.
-
 The following will happen
 
-* It firsts starts the `bin/test` script. All errors are logged.
-* When the testsuite is done the `bin/retry` script is run and tries all test
-  cases that threw and exception once more to ensure, that the error is real (and no e.g. timeout on server)
-* For all tests that failed 2 times you can see the screenshots in the folder
-  /screenshots.
-* Possible options for browser are either `firefox`, `chrome` or `headless`
+* You will be running a script (`test_and_retry`) which itself at first starts the `bin/test` script. `bin/test` runs
+all written tests in alphabetical order. You see a success or fail console output for every single test. All errors are
+printed in the console and logged in a seperate file.
+* Second, the `test_and_retry` script will start `bin/retry`. Here all tests that failed before are started once more.
+Sometimes tests just fail, eg. because of timeouts in the connection. Thus, to be sure that the found error is reproduceable,
+the tests are executed a second time.
+* The script will evaluate which errors were reproduceable and in the end give you a summary of all the failed tests (or
+tell you that one-time errors were resolved)`
 
-If an error occurs and you want to rerun this distinct test suite use an optional argument -n:
+## Debuging
+
+When the tests fail you need to find out what exactly went wrong. The following will guide you
+
+* In any case the error output in the console gives you the first clues where to find the error :-)
+* Furthermore the backtrace is saved in `log/backtrace.log` for every single fail. Its striped down to show only
+the information you really need but not the entire ruby backtrace.
+* Additionally, the failed test cases are stored in the log files. You find the failing testcase (and browser) in `log/errors.log`
+* For all these tests that failed reproduceable you will find screenshots in the folder `/screenshots. They have the same
+name as the test, so you can actually look at the page, what went wrong.
+
+Probably you will use the combination of console output and screenshots most often, as they are most handy.
+
+When you fixed the code and you want to rerun a specific test suite that failed before (to check if it really works before
+running all tests), you can pass the name of the suite with an additional argument -n:
 
 ```
 bundle exec bin/test firefox -n test_search_flow_frontpage_elements
 ```
 
-In any case the error output in the console gives you the first clues where to
-fix the tests :-)
+Happy debugging!
 
-The error output will also be stored in the log files. You find the failing testcase (and browser) in
+# install xvfb
+
+If you want run the tests headless on your local machine:
+
+Linux:
 ```
-log/errors.log
+sudo apt-get install -y xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrillic xvfb x11-apps  imagemagick
 ```
-Furthermore the backtrace is saved in
-```
-log/backtrace.log
-```
-Last, at every end of an test (may it be fail or success) a screenshot is created at
-```
-/screenshots
-```
-This is quite helpful, too, when debugging a problem.
+Mac user may want to set up a virtual box with Linux or set up and use [XQuarz](http://xquartz.macosforge.org/landing/)
+(not tested by me though)
 
