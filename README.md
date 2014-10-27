@@ -17,7 +17,7 @@ gem install bundler
 And check for new packages in the repository with
 ```
 bundle install
-``
+```
 
 The tests are running in real browsers and "experience" the page like a real user.
 They cannot interact with hidden elements or not fully loaded content. One can
