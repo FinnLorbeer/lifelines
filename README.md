@@ -1,6 +1,6 @@
 # Lifelines
 
-These are the Watir Tests to be run on the a test project besigned by Thoughtworks.
+These are the Watir Tests to be run on the a test project designed by Thoughtworks.
 They are an strip-down example of a complex test suite for a web application.
 
 Here you find the entire testsuite. It is using the
