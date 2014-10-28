@@ -80,13 +80,14 @@ Happy debugging!
 
 # File Structure
 
-The whole repository is structure like a ruby gem: You can find the scripts, that start the tests in the `/bin`folder.
-How they work is explained in the section above. You will find everything around in the `/lib` files:
+The whole repository is structured like a ruby gem: You can find the scripts, that start the tests in the `/bin` folder.
+What the scripts are doing is explained in the section above. You will find everything around the / addition to the tests
+in the `/lib` files:
 
 * `lib/tests` contains the actual tests. Each file in there reflects one of the stories (and is named accordingly).
 If there is a critical bug related to a specific story in the product, it is covered by a test within the file, too, eg.
 in the [promotion code tests](https://github.com/FinnVonFriesland/lifelines/blob/master/lib/tests/promotional_code.rb#L44).
-* `lib/classes` contains all code, that is not written directly in the test files. Its to keep the test suite clean and
+* `lib/classes` contains all code, that is not written directly in the test files to keep the test suite clean and
 [dry](http://de.wikipedia.org/wiki/Don%E2%80%99t_repeat_yourself).
 * `lib/lifelines` contains the setup and error logging
 
