@@ -78,7 +78,19 @@ bundle exec bin/test firefox -n test_search_flow_frontpage_elements
 
 Happy debugging!
 
-# install xvfb
+# File Structure
+
+The whole repository is structure like a ruby gem: You can find the scripts, that start the tests in the `/bin`folder.
+How they work is explained in the section above. You will find everything around in the `/lib` files:
+
+* `lib/tests` contains the actual tests. Each file in there reflects one of the stories (and is named accordingly).
+If there is a critical bug related to a specific story in the product, it is covered by a test within the file, too, eg.
+in the [promotion code tests](https://github.com/FinnVonFriesland/lifelines/blob/master/lib/tests/promotional_code.rb#L44).
+* `lib/classes` contains all code, that is not written directly in the test files. Its to keep the test suite clean and
+[dry](http://de.wikipedia.org/wiki/Don%E2%80%99t_repeat_yourself).
+* `lib/lifelines` contains the setup and error logging
+
+# Install xvfb
 
 If you want run the tests headless on your local machine:
 
@@ -91,6 +103,6 @@ sudo apt-get install -y xfonts-100dpi xfonts-75dpi xfonts-scalable xfonts-cyrill
 You may want to set up a virtual box with Linux or set up and use [XQuarz](http://xquartz.macosforge.org/landing/)
 (not yet tested by me though)
 
-# contribute
+# Contribute
 
 Please fork and share and work on it. Any feedback is highly appreciated!
